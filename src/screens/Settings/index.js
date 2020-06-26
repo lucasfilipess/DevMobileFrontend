@@ -45,7 +45,7 @@ function Settings() {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('MyIdea', { token })}
+          onPress={() => navigation.navigate('MyIdeas', { token })}
           style={styles.button}
         >
           <Image style={styles.icon} source={idea} />
