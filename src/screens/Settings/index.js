@@ -44,7 +44,10 @@ function Settings() {
             <Text>foto, nome, descrição, email, senha</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('MyIdea', { token })}
+          style={styles.button}
+        >
           <Image style={styles.icon} source={idea} />
           <View>
             <Text style={styles.textBtn}>Ideias</Text>

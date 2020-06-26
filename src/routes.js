@@ -6,6 +6,7 @@ import Layout from './screens/Layout';
 import Register from './screens/Register';
 import Profile from './screens/Settings/Profile';
 import Filter from './screens/Home/Filter';
+import MyIdeas from './screens/Settings/MyIdeas';
 
 const AppStack = createStackNavigator();
 
@@ -18,6 +19,7 @@ function Routes() {
         <AppStack.Screen name="Layout" component={Layout}></AppStack.Screen>
         <AppStack.Screen name="Profile" component={Profile}></AppStack.Screen>
         <AppStack.Screen name="Filter" component={Filter}></AppStack.Screen>
+        <AppStack.Screen name="MyIdeas" component={MyIdeas}></AppStack.Screen>
       </AppStack.Navigator>
     </NavigationContainer>
   );
