@@ -40,7 +40,7 @@ export default StyleSheet.create({
   logo: {
     height: IMAGE_HEIGHT,
     width: 300,
-    marginTop: 60,
+    marginTop: 80,
   },
   button: {
     backgroundColor: '#000',

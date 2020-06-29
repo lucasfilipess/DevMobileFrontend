@@ -17,6 +17,7 @@ function Settings() {
   }, []);
 
   const [token, setToken] = useState('');
+  const [loading, setLoadind] = useState(false);
 
   const navigation = useNavigation();
 
@@ -39,6 +40,7 @@ function Settings() {
           style={styles.button}
         >
           <Image style={styles.icon} source={profile} />
+
           <View>
             <Text style={styles.textBtn}>Perfil</Text>
             <Text>foto, nome, descrição, email, senha</Text>

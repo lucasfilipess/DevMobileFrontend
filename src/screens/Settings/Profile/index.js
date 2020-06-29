@@ -7,7 +7,20 @@ import {
   TextInput,
   AsyncStorage,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
+import {
+  Container,
+  Title,
+  Tab,
+  Tabs,
+  TabHeading,
+  Body,
+  Card,
+  CardItem,
+  Left,
+  Right,
+} from 'native-base';
 import api from '../../../service/api';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import logo from '../../../../assets/images/register.png';
@@ -30,6 +43,7 @@ function Profile() {
   const route = useRoute();
   const token = route.params.token;
   const [user, setUser] = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     name: '',
     description: '',
@@ -64,6 +78,7 @@ function Profile() {
   const navigation = useNavigation();
 
   async function getMyData() {
+    setLoading(true);
     try {
       await api
         .get('users/my-data', {
@@ -77,9 +92,12 @@ function Profile() {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
   async function handleUpdate() {
+    setLoading(true);
+
     if (
       values.name &&
       values.description &&
@@ -139,6 +157,7 @@ function Profile() {
         ? setErrorInput((e) => ({ ...e, confirmPassword: true }))
         : setErrorInput((e) => ({ ...e, confirmPassword: false }));
     }
+    setLoading(false);
   }
 
   async function storeData(name, data) {
@@ -150,124 +169,151 @@ function Profile() {
   }
   return (
     <>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Layout')}
-        style={styles.back}
-      >
-        <AntDesign name="arrowleft" size={30} color="black" />
-      </TouchableOpacity>
-      <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.container}
-        scrollEnabled={true}
-      >
-        {values.profile_picture === 'profile1' && (
-          <Image source={profile1} style={styles.profile} />
-        )}
-        {values.profile_picture === 'profile2' && (
-          <Image source={profile2} style={styles.profile} />
-        )}
-        {values.profile_picture === 'profile3' && (
-          <Image source={profile3} style={styles.profile} />
-        )}
-        {values.profile_picture === 'profile4' && (
-          <Image source={profile4} style={styles.profile} />
-        )}
-        {values.profile_picture === 'profile5' && (
-          <Image source={profile5} style={styles.profile} />
-        )}
-        <View style={styles.input_group}>
-          <DropdownMenu
-            style={errorInput.type ? styles.errorDropMenu : styles.dropMenu}
-            rows={rows}
-            selectedValue={values.profile_picture}
-            onValueChange={(e) => {
-              setValues({ ...values, profile_picture: e });
-            }}
-          />
-          <TextInput
-            placeholder="Nome"
-            placeholderTextColor="#000"
-            style={errorInput.name ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, name: e });
-              setErrorInput({ ...errorInput, name: false });
-            }}
-            value={values.name}
-          />
-          <TextInput
-            placeholder="Descrição"
-            placeholderTextColor="#000"
-            style={errorInput.description ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, description: e });
-              setErrorInput({ ...errorInput, description: false });
-            }}
-            value={values.description}
-          />
-
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#000"
-            style={errorInput.email ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, email: e });
-              setErrorInput({ ...errorInput, email: false });
-            }}
-            value={values.email}
-          />
-          <TextInput
-            placeholder="Senha"
-            secureTextEntry={true}
-            placeholderTextColor="#000"
-            style={errorInput.password ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, password: e });
-              setErrorInput({ ...errorInput, password: false });
-            }}
-            value={values.password}
-          />
-          <TextInput
-            placeholder="Confirmar Senha"
-            secureTextEntry={true}
-            type="password"
-            placeholderTextColor="#000"
-            style={
-              errorInput.confirmPassword ? styles.errorInput : styles.input
+      <Container>
+        <Tabs>
+          <Tab
+            heading={
+              <TabHeading style={styles.tabHeading}>
+                <Left>
+                  <TouchableOpacity
+                    style={styles.back}
+                    onPress={() => navigation.navigate('Layout')}
+                  >
+                    <AntDesign name="arrowleft" size={30} color="black" />
+                  </TouchableOpacity>
+                </Left>
+                <Title style={styles.titleMenu}>Perfil</Title>
+                <Right></Right>
+              </TabHeading>
             }
-            onChangeText={(e) => {
-              setConfirmPassword(e);
-              setErrorInput({ ...errorInput, confirmPassword: false });
-            }}
-            value={confirmPassword}
-          />
+          >
+            <KeyboardAwareScrollView
+              resetScrollToCoords={{ x: 0, y: 0 }}
+              contentContainerStyle={styles.container}
+              scrollEnabled={true}
+            >
+              {values.profile_picture === 'profile1' && (
+                <Image source={profile1} style={styles.profile} />
+              )}
+              {values.profile_picture === 'profile2' && (
+                <Image source={profile2} style={styles.profile} />
+              )}
+              {values.profile_picture === 'profile3' && (
+                <Image source={profile3} style={styles.profile} />
+              )}
+              {values.profile_picture === 'profile4' && (
+                <Image source={profile4} style={styles.profile} />
+              )}
+              {values.profile_picture === 'profile5' && (
+                <Image source={profile5} style={styles.profile} />
+              )}
+              {loading && <ActivityIndicator size="large" color="#000" />}
 
-          <TouchableOpacity style={styles.button} onPress={handleUpdate}>
-            <Text style={styles.textBtn}>Salvar</Text>
-          </TouchableOpacity>
-        </View>
+              <View style={styles.input_group}>
+                <DropdownMenu
+                  style={
+                    errorInput.type ? styles.errorDropMenu : styles.dropMenu
+                  }
+                  rows={rows}
+                  selectedValue={values.profile_picture}
+                  onValueChange={(e) => {
+                    setValues({ ...values, profile_picture: e });
+                  }}
+                />
+                <TextInput
+                  placeholder="Nome"
+                  placeholderTextColor="#000"
+                  style={errorInput.name ? styles.errorInput : styles.input}
+                  onChangeText={(e) => {
+                    setValues({ ...values, name: e });
+                    setErrorInput({ ...errorInput, name: false });
+                  }}
+                  value={values.name}
+                />
+                <TextInput
+                  placeholder="Descrição"
+                  placeholderTextColor="#000"
+                  style={
+                    errorInput.description ? styles.errorInput : styles.input
+                  }
+                  onChangeText={(e) => {
+                    setValues({ ...values, description: e });
+                    setErrorInput({ ...errorInput, description: false });
+                  }}
+                  value={values.description}
+                />
 
-        <CustomModal
-          text="Confira se todos os campos estão preenchidos corretamente"
-          error={true}
-          modalVisible={isActive.error}
-          onPress={() => setIsActive({ ...isActive, error: !isActive.error })}
-        />
-        <CustomModal
-          text="Dados alterados com sucesso !!!"
-          success={true}
-          modalVisible={isActive.success}
-          onPress={() =>
-            setIsActive({ ...isActive, success: !isActive.success })
-          }
-        />
-        <CustomModal
-          text="Este email já está cadastrado."
-          error={true}
-          modalVisible={isActive.email}
-          onPress={() => setIsActive({ ...isActive, email: !isActive.email })}
-        />
-      </KeyboardAwareScrollView>
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor="#000"
+                  style={errorInput.email ? styles.errorInput : styles.input}
+                  onChangeText={(e) => {
+                    setValues({ ...values, email: e });
+                    setErrorInput({ ...errorInput, email: false });
+                  }}
+                  value={values.email}
+                />
+                <TextInput
+                  placeholder="Senha"
+                  secureTextEntry={true}
+                  placeholderTextColor="#000"
+                  style={errorInput.password ? styles.errorInput : styles.input}
+                  onChangeText={(e) => {
+                    setValues({ ...values, password: e });
+                    setErrorInput({ ...errorInput, password: false });
+                  }}
+                  value={values.password}
+                />
+                <TextInput
+                  placeholder="Confirmar Senha"
+                  secureTextEntry={true}
+                  type="password"
+                  placeholderTextColor="#000"
+                  style={
+                    errorInput.confirmPassword
+                      ? styles.errorInput
+                      : styles.input
+                  }
+                  onChangeText={(e) => {
+                    setConfirmPassword(e);
+                    setErrorInput({ ...errorInput, confirmPassword: false });
+                  }}
+                  value={confirmPassword}
+                />
+
+                <TouchableOpacity style={styles.button} onPress={handleUpdate}>
+                  <Text style={styles.textBtn}>Salvar</Text>
+                </TouchableOpacity>
+              </View>
+
+              <CustomModal
+                text="Confira se todos os campos estão preenchidos corretamente"
+                error={true}
+                modalVisible={isActive.error}
+                onPress={() =>
+                  setIsActive({ ...isActive, error: !isActive.error })
+                }
+              />
+              <CustomModal
+                text="Dados alterados com sucesso !!!"
+                success={true}
+                modalVisible={isActive.success}
+                onPress={() =>
+                  setIsActive({ ...isActive, success: !isActive.success })
+                }
+              />
+              <CustomModal
+                text="Este email já está cadastrado."
+                error={true}
+                modalVisible={isActive.email}
+                onPress={() =>
+                  setIsActive({ ...isActive, email: !isActive.email })
+                }
+              />
+            </KeyboardAwareScrollView>
+          </Tab>
+        </Tabs>
+      </Container>
     </>
   );
 }

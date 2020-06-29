@@ -20,6 +20,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   back: {
-    marginTop: 30,
+    marginTop: 10,
+    marginLeft: 10,
   },
 });

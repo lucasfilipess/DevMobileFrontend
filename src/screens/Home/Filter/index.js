@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
@@ -12,6 +12,14 @@ function Filter() {
 
   return (
     <>
+      <TouchableOpacity onPress={() => navigation.navigate('Layout')}>
+        <AntDesign
+          style={styles.back}
+          name="arrowleft"
+          size={30}
+          color="black"
+        />
+      </TouchableOpacity>
       <View style={styles.container}>
         <Text style={styles.title}>Filtrar por :</Text>
         <FontAwesome name="filter" size={60} color="black" />
@@ -46,14 +54,6 @@ function Filter() {
           }}
         >
           <Text style={styles.text}>Menos curtidas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Layout')}>
-          <AntDesign
-            style={styles.back}
-            name="arrowleft"
-            size={30}
-            color="black"
-          />
         </TouchableOpacity>
       </View>
     </>

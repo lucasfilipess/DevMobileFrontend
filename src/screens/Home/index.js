@@ -65,11 +65,11 @@ function Home() {
     try {
       await api.get(`ideas/${user.filter}`).then((response) => {
         setIdeas(response.data);
-        setRefresh(false);
       });
     } catch (error) {
       console.log(error);
     }
+    setRefresh(false);
   }
 
   async function handleLike(id) {
@@ -161,7 +161,7 @@ function Home() {
                 )}
                 <Body style={styles.title}>
                   <Text>{idea.title}</Text>
-                  <Text note>{idea.user}</Text>
+                  <Text note>{idea.name}</Text>
                 </Body>
                 <View style={styles.right}>
                   {idea.type === 'study' && (

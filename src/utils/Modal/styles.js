@@ -30,6 +30,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 10,
     elevation: 2,
+    marginHorizontal: 10,
   },
   modalIcon: {},
   textStyle: {
@@ -42,5 +43,9 @@ export default StyleSheet.create({
     marginTop: 20,
     marginBottom: 15,
     textAlign: 'center',
+  },
+
+  optionsBtn: {
+    flexDirection: 'row',
   },
 });

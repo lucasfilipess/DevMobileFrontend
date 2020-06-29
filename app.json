@@ -1,8 +1,11 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
-    "platforms": ["ios", "android", "web"],
+    "name": "Play House",
+    "slug": "playhouse",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,17 +13,23 @@
     "splash": {
       "image": "./assets/images/splash-screen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#d9d9d9"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lucasluiz.playhouse",
+      "buildNumber": "1.0.0"
     },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
-    }
+    "android": {
+      "package": "com.lucasluiz.playhouse",
+      "versionCode": 1
+    },
+    "description": ""
   }
 }

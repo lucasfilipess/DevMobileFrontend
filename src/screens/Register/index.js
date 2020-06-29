@@ -7,7 +7,9 @@ import {
   TextInput,
   AsyncStorage,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
+import { Container } from 'native-base';
 import api from '../../service/api';
 import { useNavigation } from '@react-navigation/native';
 import logo from '../../../assets/images/register.png';
@@ -39,10 +41,12 @@ function Register() {
   });
 
   const [user, setUser] = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
 
   async function handleRegister() {
+    setLoading(true);
     if (
       values.name &&
       values.description &&
@@ -98,6 +102,7 @@ function Register() {
         ? setErrorInput((e) => ({ ...e, confirmPassword: true }))
         : setErrorInput((e) => ({ ...e, confirmPassword: false }));
     }
+    setLoading(false);
   }
 
   async function storeData(name, data) {
@@ -109,12 +114,20 @@ function Register() {
   }
   return (
     <>
+      <TouchableOpacity
+        style={styles.back}
+        onPress={() => navigation.navigate('Login')}
+      >
+        <AntDesign name="arrowleft" size={30} color="black" />
+      </TouchableOpacity>
       <KeyboardAwareScrollView
         resetScrollToCoords={{ x: 0, y: 0 }}
         contentContainerStyle={styles.container}
         scrollEnabled={true}
       >
         <Image source={logo} style={styles.logo} />
+        {loading && <ActivityIndicator size="large" color="#000" />}
+
         <View style={styles.input_group}>
           <TextInput
             placeholder="Nome"
@@ -176,12 +189,6 @@ function Register() {
           />
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.textBtn}>Cadastrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.register}
-            onPress={() => navigation.navigate('Login')}
-          >
-            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
         </View>
 

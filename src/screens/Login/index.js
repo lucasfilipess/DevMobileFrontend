@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import api from '../../service/api';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +22,7 @@ function Login() {
     password: '',
   });
   const [isActive, setIsActive] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errorInput, setErrorInput] = useState({
     email: false,
     password: false,
@@ -30,6 +32,7 @@ function Login() {
   const navigation = useNavigation();
 
   async function handleLogin() {
+    setLoading(true);
     const data = {
       email: values.email,
       password: values.password,
@@ -37,6 +40,7 @@ function Login() {
     try {
       await api.post('login', data).then((response) => {
         storeData('token', response.data.token);
+        setLoading(false);
         setUser((e) => ({ ...e, name: response.data.name }));
         setUser((e) => ({ ...e, picture: response.data.profile_picture }));
         navigation.navigate('Layout');
@@ -45,6 +49,7 @@ function Login() {
       setIsActive(true);
       setErrorInput((e) => ({ ...e, email: true }));
       setErrorInput((e) => ({ ...e, password: true }));
+      setLoading(false);
     }
   }
 
@@ -63,6 +68,8 @@ function Login() {
         scrollEnabled={true}
       >
         <Image source={logo} style={styles.logo} />
+        {loading && <ActivityIndicator size="large" color="#000" />}
+
         <View style={styles.input_group}>
           <TextInput
             placeholder="Email"

@@ -1,11 +1,16 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
-  container: {
-    flex: 1,
+  tabHeading: {
+    backgroundColor: '#fff',
   },
 
+  titleMenu: {
+    color: '#000',
+  },
+  back: {
+    marginLeft: 10,
+  },
   profileImage: {
-    // flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
     height: 40,
@@ -15,39 +20,27 @@ export default StyleSheet.create({
   },
 
   title: {
-    // flex: ,
     width: 10,
-    // backgroundColor: 'red',
   },
 
   image: {
-    // flex: 1,
     height: 40,
     width: 40,
-    // marginVertical: 30,
     resizeMode: 'contain',
   },
 
   right: {
-    // flex: 1,
     justifyContent: 'flex-end',
-    // backgroundColor: 'red',
   },
   cardItem: {
     justifyContent: 'space-between',
   },
 
-  detailsButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    // backgroundColor: '#000',
-    // padding: 10,
-    // borderRadius: 8,
+  optionButton: {
+    marginHorizontal: 30,
   },
 
-  detailsButtonText: {
-    // color: '#fff',
+  optionButtonText: {
     color: '#000',
     fontSize: 14,
     fontWeight: 'bold',
@@ -57,18 +50,4 @@ export default StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 20,
   },
-  card: {
-    // borderColor: '#000',
-    backgroundColor: 'red',
-  },
-  menuContainer: {
-    marginTop: 50,
-
-  },
-  titleMenu: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    alignContent: 'center'
-  },
 });
-

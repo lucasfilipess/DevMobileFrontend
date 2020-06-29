@@ -41,7 +41,7 @@ export default StyleSheet.create({
     height: IMAGE_HEIGHT,
     width: 250,
     height: 140,
-    marginTop: 150,
+    marginTop: 80,
   },
   button: {
     backgroundColor: '#000',
@@ -66,7 +66,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     height: 60,
     marginHorizontal: 10,
+  },
+  back: {
     marginTop: 10,
+    marginLeft: 10,
   },
   textRegister: {
     color: '#000',

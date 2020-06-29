@@ -7,6 +7,7 @@ import {
   TextInput,
   AsyncStorage,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import api from '../../service/api';
 import logo from '../../../assets/images/new-idea.png';
@@ -20,6 +21,7 @@ function NewIdea() {
   }, []);
 
   const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const [values, setValues] = useState({
     title: '',
@@ -59,6 +61,7 @@ function NewIdea() {
   }
 
   async function handleRegisterIdea() {
+    setLoading(true);
     if (
       values.title &&
       values.description &&
@@ -103,6 +106,7 @@ function NewIdea() {
         ? setErrorInput((e) => ({ ...e, type: true }))
         : setErrorInput((e) => ({ ...e, type: false }));
     }
+    setLoading(false);
   }
 
   function clearFields() {
@@ -120,6 +124,7 @@ function NewIdea() {
         scrollEnabled={true}
       >
         <Image source={logo} style={styles.logo} />
+        {loading && <ActivityIndicator size="large" color="#000" />}
         <View style={styles.input_group}>
           <TextInput
             placeholder="Título"

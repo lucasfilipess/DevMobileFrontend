@@ -5,6 +5,17 @@ export const IMAGE_HEIGHT = window.width / 2;
 export const IMAGE_HEIGHT_SMALL = window.width / 7;
 
 export default StyleSheet.create({
+  tabHeading: {
+    backgroundColor: '#fff',
+  },
+
+  titleMenu: {
+    color: '#000',
+  },
+  back: {
+    marginLeft: 10,
+  },
+
   container: {
     flex: 1,
     alignItems: 'center',
@@ -12,9 +23,10 @@ export default StyleSheet.create({
   },
 
   logo: {
+    height: IMAGE_HEIGHT,
     width: 250,
     height: 140,
-    marginTop: 50,
+    marginTop: 30,
   },
 
   input_group: {

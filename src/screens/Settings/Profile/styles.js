@@ -10,12 +10,18 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  tabHeading: {
+    backgroundColor: '#fff',
+  },
+
+  titleMenu: {
+    color: '#000',
+  },
   input_group: {
     marginBottom: 50,
   },
   back: {
-    justifyContent: 'flex-start',
-    marginTop: 10,
     marginLeft: 10,
   },
   input: {
