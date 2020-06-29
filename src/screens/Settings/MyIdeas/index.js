@@ -36,6 +36,7 @@ function MyIdeas() {
   const navigation = useNavigation();
   const [ideas, setIdeas] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [id, setId] = useState(null);
   const [modal, setModal] = useState({
     open: false,
     ideaName: '',
@@ -58,13 +59,15 @@ function MyIdeas() {
             setIdeas(response.data);
           });
       } catch (error) {
-        console.log(error);
+        console.log('error code', error.status);
       }
     }
     getIdeas();
   }, []);
 
   async function handleRefresh() {
+    console.log('delete');
+
     try {
       await api
         .get('my-ideas', {
@@ -96,7 +99,9 @@ function MyIdeas() {
     }
   }
 
-  function handleOption(option, id) {
+  function handleOption(option) {
+    console.log(id);
+
     if (option) {
       handleDelete(id);
     }
@@ -130,7 +135,7 @@ function MyIdeas() {
               onEndReachedThreshold={0.2}
               keyExtractor={(ideas) => String(ideas.id)}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item: idea }) => (
+              renderItem={({ item: idea, index }) => (
                 <Card key={idea.id}>
                   <CardItem style={styles.cardItem}>
                     {idea.profile_picture === 'profile1' && (
@@ -172,24 +177,27 @@ function MyIdeas() {
                   </CardItem>
                   <CardItem cardBody style={styles.body}>
                     <Text>{idea.description}</Text>
-                    <CustomModal
-                      text="Não foi possível abrir o link"
+                    <Text>{idea.id}</Text>
+                    <OptionsModal
+                      text={`Tem certeza que deseja apagar a ideia "${modal.ideaName}"`}
+                      modalVisible={modal.open}
                       error={true}
-                      modalVisible={isActive.error}
-                      onPress={() => setIsActive({ ...isActive, error: false })}
+                      onPressN={() => handleOption(false)}
+                      onPressT={() => handleOption(true)}
                     />
                   </CardItem>
                   <CardItem>
                     <Left>
                       <TouchableOpacity
                         style={styles.optionButton}
-                        onPress={() =>
+                        onPress={() => {
                           setModal({
                             ...modal,
                             open: true,
                             ideaName: idea.title,
-                          })
-                        }
+                          });
+                          setId(idea.id);
+                        }}
                       >
                         <Text style={styles.optionButtonText}>Excluir</Text>
                       </TouchableOpacity>

@@ -13,6 +13,13 @@ export default StyleSheet.create({
   input_group: {
     marginBottom: 50,
   },
+  tabHeading: {
+    backgroundColor: '#fff',
+  },
+
+  titleMenu: {
+    color: '#000',
+  },
   input: {
     height: 50,
     fontSize: 18,
@@ -39,8 +46,8 @@ export default StyleSheet.create({
   },
   logo: {
     height: IMAGE_HEIGHT,
-    width: 250,
-    height: 140,
+    width: 220,
+    height: 120,
     marginTop: 80,
   },
   button: {
@@ -68,7 +75,6 @@ export default StyleSheet.create({
     marginHorizontal: 10,
   },
   back: {
-    marginTop: 10,
     marginLeft: 10,
   },
   textRegister: {

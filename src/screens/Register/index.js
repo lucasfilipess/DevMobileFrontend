@@ -9,7 +9,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import { Container } from 'native-base';
+import {
+  Container,
+  Title,
+  Tab,
+  Tabs,
+  TabHeading,
+  Body,
+  Card,
+  CardItem,
+  Left,
+  Right,
+} from 'native-base';
 import api from '../../service/api';
 import { useNavigation } from '@react-navigation/native';
 import logo from '../../../assets/images/register.png';
@@ -114,105 +125,130 @@ function Register() {
   }
   return (
     <>
-      <TouchableOpacity
-        style={styles.back}
-        onPress={() => navigation.navigate('Login')}
-      >
-        <AntDesign name="arrowleft" size={30} color="black" />
-      </TouchableOpacity>
-      <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.container}
-        scrollEnabled={true}
-      >
-        <Image source={logo} style={styles.logo} />
-        {loading && <ActivityIndicator size="large" color="#000" />}
-
-        <View style={styles.input_group}>
-          <TextInput
-            placeholder="Nome"
-            maxLength={30}
-            placeholderTextColor="#000"
-            style={errorInput.name ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, name: e });
-              setErrorInput({ ...errorInput, name: false });
-            }}
-            value={values.name}
-          />
-          <TextInput
-            placeholder="Descrição"
-            maxLength={140}
-            placeholderTextColor="#000"
-            style={errorInput.description ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, description: e });
-              setErrorInput({ ...errorInput, description: false });
-            }}
-            value={values.description}
-          />
-
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#000"
-            style={errorInput.email ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, email: e });
-              setErrorInput({ ...errorInput, email: false });
-            }}
-            value={values.email}
-          />
-          <TextInput
-            placeholder="Senha"
-            secureTextEntry={true}
-            placeholderTextColor="#000"
-            style={errorInput.password ? styles.errorInput : styles.input}
-            onChangeText={(e) => {
-              setValues({ ...values, password: e });
-              setErrorInput({ ...errorInput, password: false });
-            }}
-            value={values.password}
-          />
-          <TextInput
-            placeholder="Confirmar Senha"
-            secureTextEntry={true}
-            type="password"
-            placeholderTextColor="#000"
-            style={
-              errorInput.confirmPassword ? styles.errorInput : styles.input
+      <Container>
+        <Tabs>
+          <Tab
+            heading={
+              <TabHeading style={styles.tabHeading}>
+                <Left>
+                  <TouchableOpacity
+                    style={styles.back}
+                    onPress={() => navigation.navigate('Login')}
+                  >
+                    <AntDesign name="arrowleft" size={30} color="black" />
+                  </TouchableOpacity>
+                </Left>
+                <Right></Right>
+              </TabHeading>
             }
-            onChangeText={(e) => {
-              setValues({ ...values, confirmPassword: e });
-              setErrorInput({ ...errorInput, confirmPassword: false });
-            }}
-            value={values.confirmPassword}
-          />
-          <TouchableOpacity style={styles.button} onPress={handleRegister}>
-            <Text style={styles.textBtn}>Cadastrar</Text>
-          </TouchableOpacity>
-        </View>
+          >
+            <KeyboardAwareScrollView
+              resetScrollToCoords={{ x: 0, y: 0 }}
+              contentContainerStyle={styles.container}
+              scrollEnabled={true}
+            >
+              <Image source={logo} style={styles.logo} />
+              {loading && <ActivityIndicator size="large" color="#000" />}
 
-        <CustomModal
-          text="Confira se todos os campos estão preenchidos corretamente"
-          error={true}
-          modalVisible={isActive.error}
-          onPress={() => setIsActive({ ...isActive, error: !isActive.error })}
-        />
-        <CustomModal
-          text="Usuário criado com sucesso. Seja bem vindo a PlayHouse!!!"
-          success={true}
-          modalVisible={isActive.success}
-          onPress={() =>
-            setIsActive({ ...isActive, success: !isActive.success })
-          }
-        />
-        <CustomModal
-          text="Este email já está cadastrado ou não é um email válido."
-          error={true}
-          modalVisible={isActive.email}
-          onPress={() => setIsActive({ ...isActive, email: !isActive.email })}
-        />
-      </KeyboardAwareScrollView>
+              <View style={styles.input_group}>
+                <TextInput
+                  placeholder="Nome"
+                  maxLength={30}
+                  placeholderTextColor="#000"
+                  style={errorInput.name ? styles.errorInput : styles.input}
+                  onChangeText={(e) => {
+                    setValues({ ...values, name: e });
+                    setErrorInput({ ...errorInput, name: false });
+                  }}
+                  value={values.name}
+                />
+                <TextInput
+                  placeholder="Descrição"
+                  maxLength={140}
+                  placeholderTextColor="#000"
+                  style={
+                    errorInput.description ? styles.errorInput : styles.input
+                  }
+                  onChangeText={(e) => {
+                    setValues({ ...values, description: e });
+                    setErrorInput({ ...errorInput, description: false });
+                  }}
+                  value={values.description}
+                />
+
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor="#000"
+                  style={errorInput.email ? styles.errorInput : styles.input}
+                  onChangeText={(e) => {
+                    setValues({ ...values, email: e });
+                    setErrorInput({ ...errorInput, email: false });
+                  }}
+                  value={values.email}
+                />
+                <TextInput
+                  placeholder="Senha"
+                  secureTextEntry={true}
+                  placeholderTextColor="#000"
+                  style={errorInput.password ? styles.errorInput : styles.input}
+                  onChangeText={(e) => {
+                    setValues({ ...values, password: e });
+                    setErrorInput({ ...errorInput, password: false });
+                  }}
+                  value={values.password}
+                />
+                <TextInput
+                  placeholder="Confirmar Senha"
+                  secureTextEntry={true}
+                  type="password"
+                  placeholderTextColor="#000"
+                  style={
+                    errorInput.confirmPassword
+                      ? styles.errorInput
+                      : styles.input
+                  }
+                  onChangeText={(e) => {
+                    setValues({ ...values, confirmPassword: e });
+                    setErrorInput({ ...errorInput, confirmPassword: false });
+                  }}
+                  value={values.confirmPassword}
+                />
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={handleRegister}
+                >
+                  <Text style={styles.textBtn}>Cadastrar</Text>
+                </TouchableOpacity>
+              </View>
+
+              <CustomModal
+                text="Confira se todos os campos estão preenchidos corretamente"
+                error={true}
+                modalVisible={isActive.error}
+                onPress={() =>
+                  setIsActive({ ...isActive, error: !isActive.error })
+                }
+              />
+              <CustomModal
+                text="Usuário criado com sucesso. Seja bem vindo a PlayHouse!!!"
+                success={true}
+                modalVisible={isActive.success}
+                onPress={() =>
+                  setIsActive({ ...isActive, success: !isActive.success })
+                }
+              />
+              <CustomModal
+                text="Este email já está cadastrado ou não é um email válido."
+                error={true}
+                modalVisible={isActive.email}
+                onPress={() =>
+                  setIsActive({ ...isActive, email: !isActive.email })
+                }
+              />
+            </KeyboardAwareScrollView>
+          </Tab>
+        </Tabs>
+      </Container>
     </>
   );
 }
